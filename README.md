@@ -1,90 +1,61 @@
-# RoadModel 模型与编译精度评测
+# RoadModel · 模型与编译精度评测
 
-面向 RoadModel 的单次评测工具：以模型交付链接和数据集链接为输入，核对版本与材料，分别执行模型精度、编译精度评测，再生成可追溯的飞书报告。
+[实习项目总览](https://github.com/Inner-vic/internship-projects) · [使用与验证](docs/project-guide.md)
 
-公开仓库提供编排、适配、测试与报告源码。真实执行需要已授权的 LPAI 计算环境、模型与数据、工作站/台架，以及飞书接入配置；安装 Python 包后仍需完成这些环境准备。
+让模型精度与编译精度共用明确输入，分别执行、核验和报告。
 
-## 两条评测链路
+## 解决的问题
 
-| 链路 | 执行位置与内容 | 结果 |
-| --- | --- | --- |
-| 模型精度 | LPAI 中读取数据与 GT，运行已适配模型 | OCC、视觉分类、轨迹等已适配评测项及实际覆盖范围 |
-| 编译精度 | 工作站调度台架，对比同版 FP16 ONNX 与板端输出 | 张量一致性，以及两端相对 GT 的独立指标 |
+同一个模型交付里，权重、配置、ONNX、板端编译产物和评测数据必须保持一致。模型精度与编译精度又有不同的执行环境和成功条件，混在一个“大任务成功”里会掩盖缺失数据或局部失败。
 
-两条链路分别记录状态、缺项与失败。张量一致性和 GT 表现分别呈现；缺少可靠 GT 时注明不可计算，不以零值或其他版本数据补齐。
+项目用同一份明确输入建立两条独立证据链，把材料解析、执行范围、恢复状态和报告内容绑定起来。
 
-## 输入与交付
+## 实现了什么
 
-每次提交两项业务输入：
-
-- **模型交付链接**：关联权重、配置、同版 ONNX 和编译产物。
-- **评测数据集链接**：明确数据版本、索引和逐帧 GT。
-
-系统先解析并冻结材料，再准备环境、执行评测、收集结果，最终回填原卡。部署后的飞书入口为 `RoadModel评测`；字段见[提交示例](examples/evaluation_submission.json)与[输入结构](schemas/evaluation_inputs.schema.json)。
-
-交付包括 PCM 单次评测报告、`pcm.single-eval/v1` 结构化结果，以及输入绑定、检查点和原始结果的核验记录。报告失败可续交付，不据此重复推理或台架执行。
-
-## 本地安装
-
-使用 Python 3.10+，建议在独立虚拟环境中执行：
-
-```powershell
-git clone https://github.com/Inner-vic/roadmodel-evaluation.git
-cd roadmodel-evaluation
-python -m pip install -e .
-python -m pcm_eval --help
-```
-
-按需安装 GT 与视觉处理依赖：
-
-```powershell
-python -m pip install -e ".[gt,vision]"
-```
-
-模型运行镜像、供应方源码、台架原生工具和飞书/LPAI 客户端另行准备。当前模型适配器使用 CUDA GPU，尚未适配 CPU 推理。
-
-## 部署接入
-
-1. 准备本人可访问的 LPAI 资源、官方 SDK/客户端和已有 SSH 凭据引用。
-2. 运行配置引导，核对参考空间、实际账号、资源和镜像：
-
-   ```powershell
-   python -m pcm_eval configure-environment --output initialization-request.json
-   ```
-
-3. 按审核后的配置初始化并保存绑定状态：
-
-   ```powershell
-   python -m pcm_eval initialize-environment --request initialization-request.json --state-dir .runtime/installation --output evidence/initialization
-   ```
-
-4. 将初始化结果接入自己的桌面 Agent、服务端配置和飞书工单入口，核对数据挂载与台架队列，再按明确范围完成小场景验收。
-
-配置引导及初始化参数见各命令的 `--help`，请求结构见[初始化示例](examples/installation_request.example.json)。`BOUND` 只表示空间绑定已核验，机器人接入和双链路执行还需分别验证。平台创建、启停与台架操作遵循各自的权限及确认要求。
-
-`examples/`、`configs/` 中保留了历史契约和脱敏参考值；其中的链接、路径与资源标识不能直接当作新环境的可用配置。
-
-## 源码结构
-
-| 路径 | 内容 |
+| 能力 | 实现结果 |
 | --- | --- |
-| `pcm_eval/` | 输入解析、任务状态、调度、收集与报告生成 |
-| `skills/` | 模型精度、编译精度、报告和开发空间相关 Skill |
-| `tools/` | 运行适配、后台 Agent 与部署工具 |
-| `schemas/`、`examples/`、`configs/` | 数据结构、输入及配置参考 |
-| `tests/` | 单元测试、契约和环境相关集成测试 |
+| 两链接提交 | 从模型交付和数据集链接解析材料、版本、索引与 GT |
+| 模型精度 | 在已适配的 LPAI 环境执行推理，收集 OCC、视觉和轨迹相关结果 |
+| 编译精度 | 工作站调度台架，对比同版 FP16 ONNX 与板端输出，并分别计算相对 GT 的指标 |
+| 单次评测报告 | 汇总完成、缺项和失败，生成结构化结果并回填飞书工单 |
 
-## 验证与支持范围
+## 实现架构
 
-源码检查和不依赖真实材料的调度测试：
+![RoadModel 评测的主要模块、执行顺序和关键边界](https://raw.githubusercontent.com/Inner-vic/internship-projects/main/assets/architecture/roadmodel-evaluation.svg)
 
-```powershell
-python -B tools/check_public_source.py
-python -B -m unittest tests.test_batch_schedule -v
-```
+`Runtime` 使用 SQLite 保存任务和链路状态。输入先解析为执行计划，再交给相应适配器；原始结果、覆盖范围和发布回读分别留存。
 
-GitHub 的 [Source checks](.github/workflows/source-checks.yml) 只执行源码检查。完整测试套件仍有原快照已有失败，涉及未入库的现场证据、外部运行模块及已有挂载契约；具体范围见[发布说明](PUBLICATION.md)。
+## 关键工程设计
 
-历史实机验收仅覆盖已适配版本的小场景，不能推断任意模型、任意数据格式或全量评测均已支持。跨版本比较和发版通过判定由上层流程负责。
+### 1. 冻结可比较的输入
 
-报告结构与指标映射见[报告填报规则](docs/reference-report-policy.md)和[模板配置](configs/report_template.json)。模型、数据集、凭据及运行数据库不随源码分发。
+计划绑定模型版本、请求文件摘要、数据范围与逐帧 GT。候选材料有歧义时阻止对应链路，缺 GT 时保留缺项；不从历史材料里悄悄补成一个看似完整的实验。
+
+### 2. 两条链路各自收敛状态
+
+模型计算与台架编译比较分别保存进度、结果和异常。张量一致性与 GT 表现分别报告，局部完成仍能提供明确的覆盖信息，避免用单个总分掩盖差异。
+
+### 3. 复用结果必须重新验证身份
+
+留存结果要核对任务、版本、范围和内容摘要。检查点用于接续已知工作；执行结果未知时先对账，发布或通知失败不自动重新计算。
+
+## 实现与验证范围
+
+历史实机验证覆盖已适配版本的小场景，不能扩展为任意架构、数据格式或全量评测均已支持。完整测试仍有原快照已有失败，涉及外部运行模块、现场证据和挂载契约；范围见[公开验证说明](https://github.com/Inner-vic/roadmodel-evaluation/blob/main/PUBLICATION.md)。
+
+本项目实现单次评测；跨版本比较及发版通过判定由上层流程负责。报告结构见[指标与填报规则](docs/reference-report-policy.md)。
+
+## 源码导读
+
+| 源码 | 关注的实现 |
+| --- | --- |
+| [pcm_eval/runtime.py](pcm_eval/runtime.py) | 持久任务与双链路推进 |
+| [pcm_eval/planning.py](pcm_eval/planning.py) | 计划构建与执行约束 |
+| [pcm_eval/retained.py](pcm_eval/retained.py) | 留存结果的身份核验与复用 |
+| [pcm_eval/two_link.py](pcm_eval/two_link.py) | 提交解析与材料绑定 |
+
+## 项目资料
+
+使用步骤、依赖和本地验证见[使用与验证](docs/project-guide.md)；源码来源与验证范围见[发布说明](https://github.com/Inner-vic/roadmodel-evaluation/blob/main/PUBLICATION.md)。本页用于介绍实习阶段的实现与设计，具体结论以所链接的代码和证据为准。
+
+[BenchFlow](https://github.com/Inner-vic/benchflow)展示共享硬件编排；[Mesh Visualize](https://github.com/Inner-vic/mesh-visualize)提供独立可视化协议，消费数据需符合其输入要求。
