@@ -1,0 +1,320 @@
+{
+  "schema": "pcm.single-report-template/v1",
+  "source": {
+    "url": "https://li.feishu.cn/wiki/DEMO00000000000000000000004",
+    "document_id": "DEMO00000000000000000000001",
+    "revision_id": 286
+  },
+  "model_accuracy": {
+    "occ_classes": [
+      {
+        "key": "asphalt",
+        "label": "沥青路面"
+      },
+      {
+        "key": "cement",
+        "label": "水泥路面"
+      },
+      {
+        "key": "brick_road",
+        "label": "砖路"
+      },
+      {
+        "key": "grass",
+        "label": "草地"
+      },
+      {
+        "key": "water",
+        "label": "水面"
+      },
+      {
+        "key": "bumper",
+        "label": "减速带"
+      },
+      {
+        "key": "manhole_cover",
+        "label": "井盖"
+      },
+      {
+        "key": "road_joint",
+        "label": "桥梁接缝"
+      },
+      {
+        "key": "moving_obstacle",
+        "label": "动态障碍物"
+      },
+      {
+        "key": "fixed_obstacle",
+        "label": "静态障碍物"
+      }
+    ],
+    "occ_summary_labels": {
+      "drivable": "可行驶区域iou",
+      "nonempty": "非空iou"
+    },
+    "vision_tasks": [
+      {
+        "key": "rainfall_intensity",
+        "label": "雨天"
+      },
+      {
+        "key": "basic_road_surface",
+        "label": "道路表面"
+      },
+      {
+        "key": "surface_attachment",
+        "label": "路面附着"
+      },
+      {
+        "key": "surface_attachment_distribution",
+        "label": "附着分布"
+      },
+      {
+        "key": "overall_road_bumpiness",
+        "label": "整体颠簸"
+      },
+      {
+        "key": "bump_type",
+        "label": "凸起类型"
+      },
+      {
+        "key": "bridge_joint_type",
+        "label": "桥梁接缝类型"
+      },
+      {
+        "key": "pothole_damage",
+        "label": "坑洼破损"
+      }
+    ],
+    "vision_major_classes": [
+      {
+        "task": "rainfall_intensity",
+        "class_id": "0",
+        "label": "无雨"
+      },
+      {
+        "task": "basic_road_surface",
+        "class_id": "0",
+        "label": "沥青"
+      },
+      {
+        "task": "basic_road_surface",
+        "class_id": "1",
+        "label": "水泥"
+      },
+      {
+        "task": "basic_road_surface",
+        "class_id": "2",
+        "label": "砖石"
+      },
+      {
+        "task": "surface_attachment",
+        "class_id": "0",
+        "label": "无附着"
+      },
+      {
+        "task": "surface_attachment",
+        "class_id": "1",
+        "label": "积水"
+      },
+      {
+        "task": "surface_attachment_distribution",
+        "class_id": "0",
+        "label": "无特殊附着分布"
+      },
+      {
+        "task": "overall_road_bumpiness",
+        "class_id": "0",
+        "label": "无颠簸"
+      },
+      {
+        "task": "bump_type",
+        "class_id": "0",
+        "label": "无凸起"
+      },
+      {
+        "task": "bump_type",
+        "class_id": "1",
+        "label": "减速带"
+      },
+      {
+        "task": "bump_type",
+        "class_id": "2",
+        "label": "井盖"
+      },
+      {
+        "task": "bridge_joint_type",
+        "class_id": "0",
+        "label": "无桥梁接缝"
+      },
+      {
+        "task": "pothole_damage",
+        "class_id": "0",
+        "label": "无坑洼破损"
+      },
+      {
+        "task": "pothole_damage",
+        "class_id": "1",
+        "label": "有坑洼破损"
+      }
+    ]
+  },
+  "compile_alignment": {
+    "gt_classes": [
+      {
+        "key": "asphalt",
+        "label": "沥青路面"
+      },
+      {
+        "key": "cement",
+        "label": "水泥路面"
+      },
+      {
+        "key": "brick_road",
+        "label": "砖路"
+      },
+      {
+        "key": "grass",
+        "label": "草地"
+      },
+      {
+        "key": "water",
+        "label": "水面"
+      },
+      {
+        "key": "bumper",
+        "label": "减速带"
+      },
+      {
+        "key": "manhole_cover",
+        "label": "井盖"
+      },
+      {
+        "key": "drain",
+        "label": "排水口"
+      },
+      {
+        "key": "road_joint",
+        "label": "桥梁接缝"
+      },
+      {
+        "key": "moving_obstacle",
+        "label": "动态障碍物"
+      },
+      {
+        "key": "fixed_obstacle",
+        "label": "静态障碍物"
+      }
+    ],
+    "gt_summary_labels": {
+      "drivable": "可行驶区域iou",
+      "present_miou": "present_miou",
+      "cosine": "余弦 mean(all tensors)"
+    },
+    "outputs": [
+      {
+        "key": "/encoder/layers.67/Concat_3_output_0",
+        "meaning": "means3D",
+        "group": "高斯头"
+      },
+      {
+        "key": "/aggregator/Cast_1_output_0",
+        "meaning": "means3D_int（仅余弦对比）",
+        "group": "高斯头"
+      },
+      {
+        "key": "/Reshape_34_output_0",
+        "meaning": "opas / opacity",
+        "group": "高斯头"
+      },
+      {
+        "key": "/Concat_28_output_0",
+        "meaning": "semantics",
+        "group": "高斯头"
+      },
+      {
+        "key": "/aggregator/Min_output_0",
+        "meaning": "radii",
+        "group": "高斯头"
+      },
+      {
+        "key": "/MatMul_7_output_0",
+        "meaning": "cov3D",
+        "group": "高斯头"
+      },
+      {
+        "key": "rainfall_intensity",
+        "meaning": "雨天强度",
+        "group": "视觉头"
+      },
+      {
+        "key": "basic_road_surface",
+        "meaning": "道路表面",
+        "group": "视觉头"
+      },
+      {
+        "key": "surface_attachment",
+        "meaning": "路面附着",
+        "group": "视觉头"
+      },
+      {
+        "key": "surface_attachment_distribution",
+        "meaning": "附着分布",
+        "group": "视觉头"
+      },
+      {
+        "key": "overall_road_bumpiness",
+        "meaning": "整体颠簸",
+        "group": "视觉头"
+      },
+      {
+        "key": "bump_type",
+        "meaning": "凸起类型",
+        "group": "视觉头"
+      },
+      {
+        "key": "bridge_joint_type",
+        "meaning": "桥梁接缝类型",
+        "group": "视觉头"
+      },
+      {
+        "key": "pothole_damage",
+        "meaning": "坑洼破损",
+        "group": "视觉头"
+      },
+      {
+        "key": "traj_z",
+        "meaning": "轨迹高度 z",
+        "group": "轨迹头"
+      },
+      {
+        "key": "traj_label",
+        "meaning": "轨迹标签",
+        "group": "轨迹头"
+      },
+      {
+        "key": "new_anchor",
+        "meaning": "时序 anchor",
+        "group": "时序头"
+      },
+      {
+        "key": "new_instance_feature",
+        "meaning": "时序 instance feature",
+        "group": "时序头"
+      }
+    ]
+  },
+  "release_comparison": {
+    "input_reports": 2,
+    "pairing": "same_evaluation_type_from_two_runs_or_versions",
+    "required_comparability": [
+      "evaluation_type",
+      "dataset",
+      "data_link_sha256",
+      "sample_selection_sha256",
+      "metric_definition",
+      "label_space"
+    ],
+    "status": "future; no baseline required for single report"
+  }
+}

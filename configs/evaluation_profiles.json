@@ -1,0 +1,35 @@
+{
+  "schema": "roadmodel.evaluation-profiles/v1",
+  "profiles": {
+    "model-v322-small": {
+      "kind": "model_accuracy",
+      "model_ref": "https://li.feishu.cn/record/PUBREF000000000000000000001",
+      "dataset_ref": "bound-per-head-small-scope",
+      "report": {
+        "result": "evidence/model-evaluation/native-v3.2.2-smoke-20261027/normalized_result.json",
+        "binding_file": "evidence/model-evaluation/model-reference-20261027/model-input-binding.json",
+        "gt_preparation_file": "evidence/model-evaluation/model-reference-20261027/native-gt-preparation.json",
+        "head_results": [
+          "evidence/model-evaluation/remaining-heads-20261027/collected/vision-01/normalized_result-reviewed.json",
+          "evidence/model-evaluation/remaining-heads-20261027/collected/trajectory-01-recovered/normalized_result-reviewed.json"
+        ],
+        "trajectory_figure_file": "evidence/model-evaluation/remaining-heads-20261027/figures/figure-receipt.json"
+      },
+      "request_file": "examples/model_request.json",
+      "execution_heads": [
+        "occ"
+      ]
+    },
+    "compile-v323-small": {
+      "kind": "compile_alignment",
+      "model_ref": "provided-benchEval-v3.2.3-bundle",
+      "dataset_ref": "smartchassisdata-v3/26-10-20-1",
+      "request_file": "examples/reference_compile_multiscene.json",
+      "report": {
+        "result": "evidence/actual-runs/pcm-v7-multiscene-001/gt-adapted-20261027/result.json",
+        "request_file": "examples/reference_compile_multiscene.json",
+        "supplemental_dir": "evidence/actual-runs/pcm-v7-multiscene-001"
+      }
+    }
+  }
+}

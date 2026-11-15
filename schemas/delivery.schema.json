@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable RoadModel single report delivery",
+  "type": "object",
+  "required": ["schema", "evaluation_type", "files", "entrypoints", "states", "consumption"],
+  "properties": {
+    "schema": {"const": "roadmodel.delivery/v1"},
+    "evaluation_type": {"enum": ["model_accuracy", "compile_alignment"]},
+    "files": {"type": "array", "items": {
+      "type": "object", "required": ["role", "path", "bytes", "sha256"],
+      "properties": {
+        "role": {"type": "string"}, "path": {"type": "string"},
+        "bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }},
+    "entrypoints": {"type": "object", "required": ["report", "xml"]},
+    "states": {"type": "object", "required": ["report", "publication", "quality"]},
+    "consumption": {"type": "object"}
+  }
+}

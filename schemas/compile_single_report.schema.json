@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent single compile-evaluation report",
+  "type": "object",
+  "required": ["schema", "evaluation_type", "identity", "coverage", "tensor_alignment", "ground_truth", "findings", "quality_assessment", "sources", "generation"],
+  "properties": {
+    "schema": {"const": "roadmodel.compile-single-report/v3"},
+    "evaluation_type": {"const": "compile_alignment"},
+    "identity": {"type": "object", "required": ["run_id", "version_name", "selected_frames_sha256"]},
+    "quality_assessment": {"type": "object", "properties": {"state": {"const": "not_assessed"}, "thresholds": {"type": "null"}}},
+    "tensor_alignment": {"type": "object", "required": ["outputs", "frames", "records"]},
+    "ground_truth": {"type": "object", "required": ["state", "summary", "classes", "counts"]},
+    "generation": {"type": "object", "properties": {"mode": {"const": "existing_results_only"}, "new_inference_frames": {"const": 0}}}
+  }
+}

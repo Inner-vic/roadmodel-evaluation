@@ -1,0 +1,29 @@
+{
+  "schema": "roadmodel.placement-target/v1",
+  "status": "configuration_example; mount_and_authentication_not_yet_verified",
+  "workspace_root": "/lpai/roadmodel-compile-eval",
+  "repo_dir": "/lpai/roadmodel-compile-eval/package/benchEval-skill-20261020",
+  "output_root": "/lpai/roadmodel-compile-eval/runs",
+  "python": "/lpai/roadmodel-compile-eval/venv/bin/python",
+  "driver_script": "/lpai/roadmodel-compile-eval/tools/run_compile_workstation.py",
+  "lock_file": "/lpai/roadmodel-compile-eval/locks/bench.lock",
+  "ssh_alias": "lpai",
+  "board_route": "workstation_gateway",
+  "gateway": {
+    "ssh_alias": "ubuntu-workstation",
+    "board_host": "192.0.2.10",
+    "board_port": 22,
+    "local_port": 17222,
+    "lock_file": "/home/lixiang/bench-eval/locks/bench.lock",
+    "python": "python3"
+  },
+  "dataset": {
+    "path": "/mnt/datasets/smartchassisdata-v3/26-10-20-1",
+    "data_link_file": "/mnt/datasets/smartchassisdata-v3/26-10-20-1/data_link_26-10-20-1_train859_eval135_v7.json",
+    "required_manifest": "/lpai/roadmodel-compile-eval/dataset-audit/compile-tensor-required-files.json"
+  },
+  "model": {
+    "onnx": "/lpai/roadmodel-compile-eval/models/roadmodel_simplified_no_cpu_ops_v3.2.3_fp16.onnx",
+    "packup_tar": "/lpai/roadmodel-compile-eval/models/roadmodel_simplified_no_cpu_ops_v3.2.3_fp8_sim_sub024_4tile_sub13_16tile_v2_hdma1_hmem0_CCU.tar.gz"
+  }
+}

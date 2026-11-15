@@ -1,0 +1,9 @@
+{
+  "schema": "roadmodel.submission/v1",
+  "action": "prepare_execution",
+  "jobs": [
+    {"id": "model-occ", "profile": "model-v322-small", "run_id": "model-v322-next-small"},
+    {"id": "compile", "profile": "compile-v323-small", "run_id": "compile-v323-next-small",
+     "scope": {"max_frames": 2, "expected_frames": 2, "selection": {"scene_count": 1, "frames_per_scene": 2}}}
+  ]
+}

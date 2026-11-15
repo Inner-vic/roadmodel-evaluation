@@ -1,0 +1,46 @@
+{
+  "schema": "pcm.eval-request/v1",
+  "kind": "compile_alignment",
+  "version_name": "supplied-reference-v3.2.3",
+  "source": {
+    "reference_only": true,
+    "note": "20-frame integration validation, not a full release quality decision",
+    "original_fp8_onnx_sha256": "d232c0c4b548f72322716adc70cc2e9c44670e97c6b633d34d3da2a64d4da062",
+    "reference_preparation": "convert_fp32_to_fp16_keep_fp8.py; prepared FP16 reference bound by SHA256"
+  },
+  "execution": {
+    "transport": "ssh",
+    "ssh_alias": "ubuntu-workstation",
+    "python": "/mnt/data/developer/pcm-roadmodel-eval/venv/bin/python",
+    "repo_dir": "/mnt/data/developer/pcm-roadmodel-eval/package/benchEval-skill-20261020",
+    "output_root": "/mnt/data/developer/pcm-roadmodel-eval/runs",
+    "board_ssh": "ssh root@192.0.2.10",
+    "adapter": "workstation_driver",
+    "driver_script": "/mnt/data/developer/pcm-roadmodel-eval/tools/run_compile_workstation.py",
+    "env": {}
+  },
+  "dataset": {
+    "class_name": "SmartChassisDatasetV7",
+    "path": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1",
+    "data_link_file": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1/data_link_26-10-20-1_train859_eval135_v7.json",
+    "export_root": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1",
+    "required_manifest": "/mnt/data/developer/pcm-roadmodel-eval/dataset-audit/compile-tensor-required-files.json"
+  },
+  "model": {
+    "onnx": "/mnt/data/developer/pcm-roadmodel-eval/package/benchEval-skill-20261020/examples/assets/roadmodel_simplified_no_cpu_ops_v3.2.3_fp16.onnx",
+    "packup_tar": "/mnt/data/developer/pcm-roadmodel-eval/package/benchEval-skill-20261020/examples/assets/roadmodel_simplified_no_cpu_ops_v3.2.3_fp8_sim_sub024_4tile_sub13_16tile_v2_hdma1_hmem0_CCU.tar.gz",
+    "onnx_sha256": "c4e7346b9a91a61a5ddd179aa690b9896573b4f17df05ce21745d5198d683570",
+    "packup_sha256": "7c347f62302b5b2eaeb08bee042ba817456ad44c1145b085b6bccebd964d06fb"
+  },
+  "evaluation": {
+    "frame_fraction": 1.0,
+    "max_frames": 20,
+    "expected_frames": 20,
+    "selection": {
+      "scene_count": 10,
+      "frames_per_scene": 2
+    },
+    "compute_gt_metrics": false,
+    "v7_pipeline_verified": true
+  }
+}

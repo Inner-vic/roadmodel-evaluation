@@ -1,0 +1,134 @@
+{
+  "schema": "pcm.eval-request/v1",
+  "kind": "compile_alignment",
+  "version_name": "v3.2.2",
+  "source": {
+    "model_reference_url": "https://li.feishu.cn/record/PUBREF000000000000000000001",
+    "note": "One-frame five-original-subnet chain validation; no ELF merging or full evaluation",
+    "reference_preparation": "原convert_fp32_to_fp16_keep_fp8.py；交付源ONNX与派生FP16参考分别记录SHA256"
+  },
+  "execution": {
+    "transport": "ssh",
+    "ssh_alias": "ubuntu-workstation",
+    "python": "/mnt/data/developer/pcm-roadmodel-eval/venv/bin/python",
+    "repo_dir": "/mnt/data/developer/pcm-roadmodel-eval/subnet-adapter-20261029",
+    "output_root": "/mnt/data/developer/pcm-roadmodel-eval/subnet-runs",
+    "adapter": "subnet_chain_workstation",
+    "driver_script": "/mnt/data/developer/pcm-roadmodel-eval/subnet-adapter-20261029/subnet_chain_remote.py",
+    "driver_sha256": "30bded74c2ddcec624d2a32a4edce8c2b3b4f01f41556d7123db0af1c36b38af",
+    "contract_script": "/mnt/data/developer/pcm-roadmodel-eval/subnet-adapter-20261029/subnet_contract.py",
+    "contract_sha256": "126b8096f109ccf040dc7960cfa739754c4690e73593a4a84718863e2a85d3f8",
+    "env": {}
+  },
+  "dataset": {
+    "class_name": "SmartChassisDatasetV7",
+    "path": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1",
+    "data_link_file": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1/data_link_26-10-20-1_train859_eval135_v7.json",
+    "data_link_sha256": "e86137f3fced2f3c4635d66cfc59904de36fba065ee2dd3e637f52850d59119c",
+    "input_dir": "/mnt/data/developer/pcm-roadmodel-eval/runs/pcm-v7-multiscene-001/frame_000000",
+    "cached_inputs": [
+      {
+        "filename": "imgs.1x1x3x768x1600.float16.bin",
+        "nbytes": 7372800,
+        "sha256": "137632a0fbfeff6297ee52748c01f69209efbad7ea500ec2db8efb4f2f4fe717"
+      },
+      {
+        "filename": "@lidar_backbone@pillar_layer@voxel_layer@LpexVoxelizationTRT_output_1.14400x3.int32.bin",
+        "nbytes": 172800,
+        "sha256": "757481120fd3bab2e5c4efc450c481f05201a180378617d994badc15385ef373"
+      },
+      {
+        "filename": "@lidar_backbone@pillar_layer@voxel_layer@LpexVoxelizationTRT_output_0.14400x32x4.float16.bin",
+        "nbytes": 3686400,
+        "sha256": "c37d2f9f3710a528092ffe593d1c12272110f0fe7205595a2459a3d3266846b5"
+      },
+      {
+        "filename": "@lidar_backbone@pillar_layer@voxel_layer@LpexVoxelizationTRT_output_2.14400.int32.bin",
+        "nbytes": 57600,
+        "sha256": "f4cf9be8b7fc2af875c342487d69056890ced57aa4e8ac55689aa7158806856e"
+      },
+      {
+        "filename": "prev_anchor.1x37x1600.float16.bin",
+        "nbytes": 118400,
+        "sha256": "4dcc97b341ab5e1daf007601b05e45e2af1e570fe44003603e4c248d343bfef4"
+      },
+      {
+        "filename": "temporal_enabled.1.float16.bin",
+        "nbytes": 2,
+        "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+      },
+      {
+        "filename": "projection_mat.1x4x4.float16.bin",
+        "nbytes": 32,
+        "sha256": "d88c2a508cd5236323df3d5c38172285c33c61643ded20a6e91fee8a787e78ed"
+      },
+      {
+        "filename": "prev2cur.1x4x4.float16.bin",
+        "nbytes": 32,
+        "sha256": "8a76ae26be2d4a4a8efe6de32d4dc1721e72c19e8e5080197d1e4b4755ca801a"
+      },
+      {
+        "filename": "prev_instance_feature.1x1600x128.float16.bin",
+        "nbytes": 409600,
+        "sha256": "d58201a30b35a60612306667b083ca4dfaf9efa107386fff36188e42c34c3c19"
+      },
+      {
+        "filename": "traj_xy.3200.float16.bin",
+        "nbytes": 6400,
+        "sha256": "9322f7d595d6ddb10b505317f75a24cf7086619950f7eef0aa31850d328495a5"
+      },
+      {
+        "filename": "vc_per_wheel.1x4.int32.bin",
+        "nbytes": 16,
+        "sha256": "085f12b665d40e9e3509206f8a3d777c05a6bb77379c1cf14f31e30209fcfe0a"
+      }
+    ]
+  },
+  "model": {
+    "onnx": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/v322.onnx",
+    "onnx_sha256": "35e0a8585d40e930e7794cc75bec18526ef39ac367225ea8788bc2911809f35a",
+    "source_audit": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/source-audit.json",
+    "source_audit_sha256": "3dd26bdab970aeb4c8ff778f13f87eb049891cd314ff9166d01b8bebde2d0bf1",
+    "subnet_archives": [
+      {
+        "stage": 0,
+        "path": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub0_image_modified_16tile_packup.tar.gz",
+        "sha256": "861ed11567e8bc5c79a1d76df6f7cdfa89b8dd7ea2311aa71dfdc248a75d6a19"
+      },
+      {
+        "stage": 1,
+        "path": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub1_lidar_modified_16tile_packup.tar.gz",
+        "sha256": "9aa6c5cc5bcb3ce5cb8a1b08f0e12a88898306dfd748246f361626a8c5714882"
+      },
+      {
+        "stage": 2,
+        "path": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub2_transformer_modified_20tile_packup.tar.gz",
+        "sha256": "846ca8590c1b5d9ea5cca3502869919d405bf83f37f8e456e2db8d78d41905c5"
+      },
+      {
+        "stage": 3,
+        "path": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub3_classifier_modified_16tile_packup.tar.gz",
+        "sha256": "ba36b00ed2726dff06765e5b40d1265d0117e2e3112b6981b4d9aac74f561fdc"
+      },
+      {
+        "stage": 4,
+        "path": "/mnt/data/developer/pcm-roadmodel-eval/model-materials/v3.2.2-subnets/roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub4_traj_modified_20tile_packup.tar.gz",
+        "sha256": "92be755d45f08b67f6986a4fc3b9b856df7f6a4f9644d714dd067377b6dd7c20"
+      }
+    ]
+  },
+  "evaluation": {
+    "frame_fraction": 1.0,
+    "max_frames": 1,
+    "expected_frames": 1,
+    "compute_gt_metrics": false,
+    "selection": {
+      "frames": [
+        [
+          "2026-06-30_18-39-31_HLX34B167T1300224",
+          18
+        ]
+      ]
+    }
+  }
+}

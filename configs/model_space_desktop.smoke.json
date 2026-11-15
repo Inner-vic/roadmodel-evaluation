@@ -1,0 +1,9 @@
+{
+  "workstation_alias": "ubuntu-workstation",
+  "remote_python": "/mnt/data/developer/pcm-roadmodel-eval/venv/bin/python",
+  "remote_protocol": "/mnt/data/bench-eval/service/roadmodel/model-tickets-20261103-r3/tools/model_space_queue_remote.py",
+  "queue_root": "/mnt/data/bench-eval/roadmodel/deployment/model-tickets-20261103-r3/smoke-queue",
+  "lpai_cli": "C:/Users/developer/AppData/Local/bin/lpai-agent.exe",
+  "connection_index": "D:/developer/Desktop/Project/RoadModelEval/inspection/space-preparation-agent-smoke",
+  "browser_backend_verified": false
+}

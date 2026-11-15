@@ -1,0 +1,113 @@
+{
+  "schema": "roadmodel.delivery-catalog/v1",
+  "models": [
+    {
+      "materials": {
+        "version": "v3.2.2",
+        "model_assets": [
+          {
+            "namespace": "vc-chassis",
+            "uid": "d3be4c63495a45538cd470547c257d9f",
+            "version": "26-09-08-1"
+          },
+          {
+            "namespace": "vc-chassis",
+            "uid": "d3be4c63495a45538cd470547c257d9f",
+            "version": "26-09-08-2"
+          }
+        ],
+        "checkpoints": [],
+        "onnx": [
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8.onnx",
+            "size": 145926021,
+            "token": "RIE8bBIBEoC999xjevwcsAxnn6c"
+          }
+        ],
+        "packages": [
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub0_image_modified_16tile_packup.tar.gz",
+            "size": 73871264,
+            "token": "Dmnkbh2wToC1K8xznl1c62Nxnvf"
+          },
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub1_lidar_modified_16tile_packup.tar.gz",
+            "size": 37517446,
+            "token": "SO21bDXqKopngCxJAZ9chxDvnGc"
+          },
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub2_transformer_modified_20tile_packup.tar.gz",
+            "size": 48624084,
+            "token": "AxrnbyoPmoJZMUxKoAacykjXnih"
+          },
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub3_classifier_modified_16tile_packup.tar.gz",
+            "size": 8074665,
+            "token": "XbsvbzHKcoEss6x7ednc95udn5c"
+          },
+          {
+            "name": "roadmodel_simplified_no_cpu_ops_v3.2.2_fp8_sim_sub4_traj_modified_20tile_packup.tar.gz",
+            "size": 9717275,
+            "token": "NQ2HbX8yno6dJ6xgZmkcH7hXnne"
+          }
+        ]
+      },
+      "chains": {
+        "model_accuracy": {
+          "dataset_id": "smartchassisdata-v3/26-10-20-1",
+          "heads": [
+            "occ",
+            "vision"
+          ],
+          "validation_heads": [
+            "occ"
+          ],
+          "request": {
+            "path": "examples/two_link_model_small.json",
+            "sha256": "f9149121a32943822f861c903f83d1d292b05dc16ee26d99c4112c5da48c4c01"
+          },
+          "validation_only": true,
+          "binding": {
+            "path": "evidence/model-evaluation/model-reference-20261027/model-input-binding.json",
+            "sha256": "a346bda254716059ae7f0f0451c7232cdbdaa24040949d5a4a1de01adb123282"
+          },
+          "gt_preparation": {
+            "path": "evidence/model-evaluation/model-reference-20261027/native-gt-preparation.json",
+            "sha256": "3448c5b6e5d483c634749052306bacbc323ba6bed6413e76a49cc385ea5bd169"
+          }
+        },
+        "compile_alignment": {
+          "dataset_id": "smartchassisdata-v3/26-10-20-1",
+          "heads": [],
+          "request": {
+            "path": "examples/compile_v322_subnets_small.json",
+            "sha256": "38540a8ae41843eacc7976453f7a0411bc061462e3d3c548b6ae03367a6571fd"
+          },
+          "validation_only": true
+        }
+      }
+    }
+  ],
+  "datasets": [
+    {
+      "id": "smartchassisdata-v3/26-10-20-1",
+      "version": "26-10-20-1",
+      "aliases": [
+        "https://lpai.lixiang.com/lpaiweb/xspacex_vc-chassis/subApp/components/detail/project-bf8f6b06-f0e7-4d72-aa58-0c2731157df1/record/81e922d6-ee86-483c-9366-d5e3f6aca940",
+        "https://lpai.lixiang.com/lpaiweb/xspacex_vc-chassis/subApp/dataset/detail/a92b698afa80429a9678826f482788f9?version=26-10-20-1",
+        "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1",
+        "工作站:/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1"
+      ],
+      "index": {
+        "path": "evidence/requested-dataset/data_link_26-10-20-1_train859_eval135_v7.json",
+        "sha256": "e86137f3fced2f3c4635d66cfc59904de36fba065ee2dd3e637f52850d59119c"
+      },
+      "gt_heads": [
+        "occ"
+      ],
+      "locations": {
+        "workstation": "/mnt/data/developer/pcm-roadmodel-eval/datasets/smartchassisdata-v3/26-10-20-1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type":"object",
+  "properties":{
+    "outcome":{"type":"string","enum":["OBSERVED","CREATE_REQUESTED","CAPACITY_EXCEEDED","ACCESS_DENIED","LOGIN_REQUIRED","WRONG_INSTANCE","UNKNOWN"]},
+    "instance_name":{"type":"string"},
+    "observed_account":{"type":"string"},
+    "observed_namespace":{"type":"string"},
+    "observed_cluster":{"type":"string"},
+    "visible_state":{"type":"string"},
+    "changed":{"type":"boolean"},
+    "problem":{"type":"string"},
+    "space_exists":{"type":["boolean","null"]},
+    "ssh_host":{"type":["string","null"]},
+    "ssh_port":{"type":["integer","null"],"minimum":1,"maximum":65535},
+    "credential_name":{"type":["string","null"]},
+    "mounts":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"version":{"type":"string"},"path":{"type":"string"},"env":{"type":"string"}},"required":["name","version","path","env"],"additionalProperties":false}}
+  },
+  "required":["outcome","instance_name","observed_account","observed_namespace","observed_cluster","visible_state","changed","problem","space_exists","ssh_host","ssh_port","credential_name","mounts"],
+  "additionalProperties":false
+}

@@ -1,0 +1,264 @@
+{
+  "schema": "pcm.known-assets/v1",
+  "workstation": {
+    "ssh_alias": "ubuntu-workstation",
+    "connection_verified": false,
+    "physical_root": "/mnt/data/developer/pcm-roadmodel-eval",
+    "compatibility_alias": "/home/lixiang/developer/pcm-roadmodel-eval"
+  },
+  "model_source": {
+    "repository": "https://gitlab.chehejia.com/smartchassis/roadmodel.git",
+    "branch": "dev_v41",
+    "inspected_commit": "524e079723820582de1ebfe88a2053b072c1893d",
+    "config": "config/4-0-0.py",
+    "note": "Inspected branch commit; the linked training record did not declare a commit_id."
+  },
+  "dataset": {
+    "namespace": "vc-chassis",
+    "name": "smartchassisdata-v3",
+    "version": "26-10-20-1",
+    "uid": "a92b698afa80429a9678826f482788f9",
+    "version_uid": "8336cdf7ec0c46ea85fc3c8ec735bc37",
+    "source_task_uid": "81e922d6-ee86-483c-9366-d5e3f6aca940",
+    "class_name": "SmartChassisDatasetV7",
+    "task_mount": "/mnt/datasets/smartchassisdata-v3/26-10-20-1",
+    "data_link_name": "data_link_26-10-20-1_train859_eval135_v7.json",
+    "source_uri": "s3://s3.bj.bcebos.com/smartchassis-roadmodel-data/datasets/DataReorganized-V161-minidataset-test/",
+    "declared_eval_scenes": 135,
+    "declared_eval_frames": 8337,
+    "actual_datalink_verified": true,
+    "workstation_copy_verified": false,
+    "known_issue": "Dataset description reports unexpected OCC filling of speed-bump holes.",
+    "actual_eval_scenes": 135,
+    "actual_eval_frames": 8337,
+    "data_link_sha256": "e86137f3fced2f3c4635d66cfc59904de36fba065ee2dd3e637f52850d59119c",
+    "inventoried_files": 50563,
+    "inventoried_bytes": 74226296172,
+    "missing_cloud_references": 0,
+    "workstation_copy_state": "required_files_complete",
+    "progress_file": "evidence/requested-dataset/compile-tensor-progress.json",
+    "smoke_copy": {
+      "frames": 3,
+      "files": 23,
+      "verified_bytes": 48013145,
+      "state": "complete"
+    },
+    "workstation_reuse_audit": "evidence/requested-dataset/workstation-reuse-audit.json",
+    "compile_required_profiles": {
+      "tensor_only": {
+        "files": 16810,
+        "bytes": 44050968932,
+        "excluded_bytes": 30175327240,
+        "by_role": {
+          "data_link": {
+            "files": 1,
+            "bytes": 20551587
+          },
+          "camera_120": {
+            "files": 8337,
+            "bytes": 1532654793
+          },
+          "raw_lidar": {
+            "files": 8337,
+            "bytes": 42497549792
+          },
+          "sensor_param": {
+            "files": 135,
+            "bytes": 212760
+          }
+        },
+        "workstation": {
+          "verified_available_files": 16810,
+          "verified_available_bytes": 44050968932,
+          "remaining_files": 0,
+          "remaining_bytes": 0,
+          "before_sync": {
+            "verified_available_files": 6345,
+            "verified_available_bytes": 16309203763,
+            "remaining_files": 10465,
+            "remaining_bytes": 27741765169
+          },
+          "content_rehashed": true
+        }
+      },
+      "with_occ": {
+        "files": 25147,
+        "bytes": 54359680448,
+        "excluded_bytes": 19866615724,
+        "by_role": {
+          "data_link": {
+            "files": 1,
+            "bytes": 20551587
+          },
+          "camera_120": {
+            "files": 8337,
+            "bytes": 1532654793
+          },
+          "raw_lidar": {
+            "files": 8337,
+            "bytes": 42497549792
+          },
+          "occ_gt": {
+            "files": 8337,
+            "bytes": 10308711516
+          },
+          "sensor_param": {
+            "files": 135,
+            "bytes": 212760
+          }
+        },
+        "workstation": {
+          "verified_available_files": 9449,
+          "verified_available_bytes": 20852089715,
+          "remaining_files": 15698,
+          "remaining_bytes": 33507590733
+        }
+      }
+    },
+    "workstation_copy_scope": "tensor_only; full source directory is intentionally not synchronized",
+    "tensor_only_copy_verified": true,
+    "required_files_validation": "evidence/requested-dataset/compile-tensor-validation.json",
+    "required_files_sync_receipt": "evidence/requested-dataset/compile-tensor-sync-receipt.json",
+    "pre_required_sync_audit": {
+      "verified_downloaded_files": 18840,
+      "verified_downloaded_bytes": 28086332604,
+      "locally_reused_files": 164,
+      "locally_reused_logical_bytes": 766085,
+      "remaining_unverified_files": 31559,
+      "remaining_unverified_bytes": 46139197483
+    }
+  },
+  "bench_bundle": {
+    "file": "benchEval-skill-v1-20261020.zip",
+    "sha256": "185acb2c5c020e2de7ed73498bb2348854676ce9c178e3e306e6e45f6ab638ba",
+    "reference_model_version": "v3.2.3",
+    "v7_pipeline_verified": true,
+    "v7_tensor_smoke_verified": true,
+    "gt_contract_verified": false,
+    "verified_run_id": "pcm-v7-multiscene-001",
+    "verified_frames": 20,
+    "outputs_per_frame": 18,
+    "runtime_onnx_fp16_sha256": "c4e7346b9a91a61a5ddd179aa690b9896573b4f17df05ce21745d5198d683570",
+    "note": "20-frame, 10-scene real-board reference integration succeeded with fresh-output provenance and full coverage. GT contract remains unverified; no full 8337-frame release quality decision.",
+    "input_preprocessing_verified": true,
+    "board_output_provenance_verified": true,
+    "invalidated_run_ids": [
+      "pcm-v7-reference-smoke-001",
+      "pcm-v7-tensor-smoke-003",
+      "pcm-v7-tensor-smoke-004"
+    ],
+    "v7_tensor_alignment_verified": true,
+    "verified_scenes": 10,
+    "result_file": "evidence\\actual-runs\\pcm-v7-multiscene-001\\result.json",
+    "integration_summary": "evidence\\actual-runs\\pcm-v7-multiscene-001\\integration_summary.json",
+    "v7_pipeline_verified_scope": "supplied v3.2.3, tensor_only NumPy single-camera cold-start reference; 10 scenes, 20 frames",
+    "difference_analysis": "evidence/actual-runs/pcm-v7-multiscene-001/tensor_difference_analysis.json",
+    "repeatability_verified": true,
+    "repeatability_run_id": "pcm-v7-difference-repeat-001",
+    "batch_resume_verified": true,
+    "batch_resume_run_id": "pcm-v7-batch-check-001",
+    "retry_validation": "unit tests; not an injected real-board failure"
+  },
+  "execution_policy": {
+    "model_accuracy": "LPAI with dataset mount; no workstation dataset copy",
+    "compile_alignment_target": "workstation with a verified input-file allowlist and real board",
+    "automatic_full_workstation_download": false,
+    "placement_review": "evidence/architecture/execution-placement-review.json",
+    "compile_data_requirement": "evidence/requested-dataset/compile-input-requirements.json",
+    "default_compile_manifest": "evidence/requested-dataset/compile-tensor-required-files.json",
+    "current_scope": "small_scene_validation_only; full eval awaits business scope confirmation",
+    "validation_max_frames": 20,
+    "full_eval_requested": false,
+    "artifact_retention": "keep_all; no automatic deletion"
+  },
+  "model_accuracy_readiness": "evidence\\model-evaluation\\model-reference-20261027\\model-input-binding.json",
+  "single_report": "https://li.feishu.cn/docx/DEMO00000000000000000000003",
+  "local_report_debug_copy": "evidence/reports/pcm-single-evaluation-20261027.html",
+  "report_delivery_format": "native_feishu_docx",
+  "publication_receipt": "evidence\\reports\\compile-atomic-v3-20261027\\publish-reviewed\\publication-receipt.json",
+  "prior_analysis_document": "https://li.feishu.cn/docx/DEMO00000000000000000000007",
+  "single_reports": {
+    "compile_alignment": {
+      "document_id": "DEMO00000000000000000000003",
+      "url": "https://li.feishu.cn/docx/DEMO00000000000000000000003",
+      "title": "PCM 单次编译精度评测报告 v3.2.3",
+      "revision_id": 15,
+      "evaluation_type": "compile_alignment",
+      "schema": "roadmodel.compile-single-report/v3",
+      "report_status": "published_and_verified",
+      "structured_report": "evidence\\reports\\compile-atomic-v3-20261027\\reviewed.json",
+      "draft": "evidence\\reports\\compile-atomic-v3-20261027\\reviewed.xml",
+      "draft_sha256": "875123dbc99c676866d4a207415268c118879aa738155c6f7e20b98b365c045f",
+      "readback": "passed",
+      "publication_receipt": "evidence\\reports\\compile-atomic-v3-20261027\\publish-reviewed\\publication-receipt.json",
+      "attachment": [
+        {
+          "id": "doxcnieTiTUbX6zm5y50nnvC3Pb",
+          "name": "单次编译评测结构化报告.json",
+          "mime": "application/json",
+          "size": "677011",
+          "token": "U8oGbKybpolUHVxAK0yc1puQnbc"
+        },
+        {
+          "id": "doxcnERf75WStblhkuyConQcUkd",
+          "name": "原始结果与完整明细.zip",
+          "mime": "application/zip",
+          "size": "121317",
+          "token": "GsRTbazGnoO1nox0bseczuZ4n2Q"
+        }
+      ]
+    },
+    "model_accuracy": {
+      "document_id": "DEMO00000000000000000000008",
+      "url": "https://li.feishu.cn/docx/DEMO00000000000000000000008",
+      "title": "PCM 单次模型精度评测报告 待测版本（模板·待评测）",
+      "revision_id": 4,
+      "evaluation_type": "model_accuracy",
+      "report_status": "template_only",
+      "filled_metric_cells": 0,
+      "draft": "draft_6cbcd693_folder\\draft.xml",
+      "structured_report": "draft_6cbcd693_folder\\draft.json",
+      "draft_sha256": "df4679993ea8590885ce42afd3f15771a1591691f83a37286303d521e3b514f3",
+      "readback": "passed",
+      "attachment": [
+        {
+          "block_id": "doxcnIKkVt76fvHYmIE94KAsExe",
+          "block_token": "JCEAb1MIPofX3XxX5w8cD9Pon4f",
+          "block_type": "file"
+        }
+      ]
+    }
+  },
+  "model_report_template": "https://li.feishu.cn/docx/DEMO00000000000000000000008",
+  "report_template": "configs/report_template.json",
+  "single_report_history": [
+    {
+      "document_id": "DEMO00000000000000000000003",
+      "url": "https://li.feishu.cn/docx/DEMO00000000000000000000003",
+      "title": "PCM 单次编译精度评测报告 v3.2.3",
+      "revision_id": 4,
+      "evaluation_type": "compile_alignment",
+      "report_status": "partial",
+      "filled_metric_cells": 37,
+      "draft": "draft_7202b10f_folder\\draft.xml",
+      "structured_report": "draft_7202b10f_folder\\draft.json",
+      "draft_sha256": "769c07782996f9a0499c2cb13a929d40080a8c363dfcac81092e99fcb210f34d",
+      "readback": "passed",
+      "attachment": [
+        {
+          "block_id": "doxcnmhKD8q2ernQhniv9kuB4hf",
+          "block_token": "U3twbhXaHo9k8BxFjCMczy0Onng",
+          "block_type": "file"
+        }
+      ]
+    }
+  ],
+  "provided_pcm_model_reference": {
+    "reference_url": "https://li.feishu.cn/record/PUBREF000000000000000000001",
+    "source_report_version_label": "v3.2.2",
+    "access_state": "readable",
+    "provided_by_user": true
+  },
+  "model_accuracy_input_binding": "evidence\\model-evaluation\\model-reference-20261027\\model-input-binding.json",
+  "publication_note": "Historical source-project metadata with synthetic connection/resource references; not a verified deployment catalog."
+}

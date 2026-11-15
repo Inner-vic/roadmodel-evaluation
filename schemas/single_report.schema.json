@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Template-based single evaluation report",
+  "type": "object",
+  "required": ["schema", "evaluation_type", "template", "identity", "coverage", "execution", "report_status", "tables", "comparison"],
+  "properties": {
+    "schema": {"const": "pcm.single-report/v2"},
+    "evaluation_type": {"enum": ["model_accuracy", "compile_alignment"]},
+    "identity": {"type": "object", "required": ["version_name", "run_id", "dataset", "sample_selection_sha256"]},
+    "report_status": {"enum": ["template_only", "partial", "complete"]},
+    "quality_assessment": {"const": "not_assessed"},
+    "tables": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "required": ["key", "title", "columns", "rows"],
+      "properties": {"rows": {"type": "array"}}
+    }},
+    "comparison": {"type": "object", "properties": {"state": {"const": "not_requested"}}}
+  }
+}

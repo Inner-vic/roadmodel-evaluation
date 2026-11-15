@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RoadModel 飞书入口",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["model_delivery_url", "dataset_url"],
+  "properties": {
+    "model_delivery_url": {"type": "string", "format": "uri", "maxLength": 1000},
+    "dataset_url": {"type": "string", "format": "uri", "maxLength": 1000}
+  }
+}

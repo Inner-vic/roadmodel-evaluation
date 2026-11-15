@@ -1,0 +1,105 @@
+{
+  "schema": "pcm.single-report-design-proposal/v1",
+  "status": "proposed_for_discussion",
+  "purpose": "Describe one actual evaluation independently of the PCM release report layout",
+  "report_types": ["compile_alignment", "model_accuracy"],
+  "common_sections": [
+    {
+      "id": "overview",
+      "title": "本次评测摘要",
+      "content": ["评测对象与目的", "执行状态", "实际场景/样本范围", "关键结果", "结果有效性", "是否配置质量阈值及判定"],
+      "rules": ["执行完成、解析完整、信息展示完整、质量通过分别表示", "仅使用可追溯的结果形成摘要"]
+    },
+    {
+      "id": "identity",
+      "title": "模型、数据与执行配置",
+      "content": ["run_id与报告修订", "模型版本和产物", "代码提交与配置", "数据版本与划分", "评测头/时序/预处理/后处理", "运行环境", "推理与后处理各自的时间"],
+      "rules": ["正文显示可读名称和关键设置", "完整哈希、路径与命令置于复现附录", "观测到的配置不冒充已确认的模型配套配置"]
+    },
+    {
+      "id": "coverage",
+      "title": "样本覆盖与数据有效性",
+      "content": ["计划与实际场景数/帧数", "成功/失败/跳过数量和原因", "各指标实际分母", "类别支持数", "缺失输出/非有限值/来源检查", "按场景结果（源数据支持时）"],
+      "rules": ["原始来源未给出的统计标为未提供", "逐帧GT指标须显式补算，不能从全局IoU反推出场景指标"]
+    },
+    {"id": "results", "title": "分项评测结果", "content": ["由report_type和实际输出选择结果模块"]},
+    {
+      "id": "findings",
+      "title": "关注项与附加验证",
+      "content": ["最低指标样本或最大误差样本", "失败/无效信息", "独立诊断与复跑结论及其实际范围"],
+      "rules": ["没有质量阈值时不标通过/不通过", "Top样本按明确排序规则产生", "3帧诊断不能充当20帧统计", "现象与原因推断分开描述"]
+    },
+    {
+      "id": "definitions",
+      "title": "指标定义与统计口径",
+      "columns": ["指标ID与名称", "含义/公式", "单位", "样本范围", "聚合方式", "忽略项/类别规则", "原始或派生", "实现版本"]
+    },
+    {
+      "id": "artifacts",
+      "title": "结果明细与复现资料",
+      "content": ["统一结果JSON", "原始指标/逐帧误差明细", "输入与输出校验记录", "执行和GT补算收据", "复现命令及软件/模型/数据身份", "字段覆盖清单"]
+    }
+  ],
+  "compile_modules": [
+    {
+      "id": "tensor_alignment",
+      "title": "输出数值对齐",
+      "group_by": "实际输出所属模块，如高斯、视觉、轨迹、时序",
+      "columns": ["输出简称", "有效/计划帧数", "mean cosine", "min cosine", "逐帧MAE均值", "最大绝对误差"],
+      "detail_columns": ["frame_id", "output_name", "cosine", "mean_abs_diff", "max_abs_diff", "compare_dtype", "status"],
+      "rules": ["输出列表来自本次实际模型和比较结果", "技术附录提供输出全名/含义/shape/dtype映射", "MAE的帧均值不是按张量元素加权的全局MAE"]
+    },
+    {
+      "id": "gt_summary",
+      "title": "两端预测相对GT的总体指标",
+      "columns": ["指标", "ONNX", "板端", "有效帧数", "状态"],
+      "metrics": ["present_miou", "occ_iou", "drivable_iou"],
+      "rules": ["此处比较的是同一次编译评测中的两端输出，不需要历史基线", "非空IoU和可行驶IoU独立展示", "后处理实现及GT几何必须说明"]
+    },
+    {
+      "id": "gt_classes",
+      "title": "OCC类别结果与样本支持",
+      "row_source": "本次评测配置的有效类别及原始class_support，不使用PCM模板中的固定类别行",
+      "summary_columns": ["类别ID/名称", "GT体素数", "ONNX IoU", "板端IoU", "样本状态"],
+      "count_detail_columns": ["类别", "后端", "GT支持数", "预测支持数", "交集TP", "FP", "FN", "指标状态"],
+      "rules": ["完整保留无GT类别及其预测支持数", "无GT且有预测时明确显示存在预测，避免掩盖误检", "忽略类与空类的处理单独说明", "FP/FN等由计数派生时记录公式"]
+    }
+  ],
+  "model_modules": [
+    {"id": "occ", "title": "OCC评测", "content": ["总体mIoU/非空IoU/可行驶IoU等实际指标", "全部有效类别的IoU/precision/recall和支持数", "实际产生的Pillar结果"]},
+    {"id": "vision", "title": "视觉分类评测", "content": ["各任务mAP/accuracy/macro recall及样本数", "全部实际子类的AP/recall/支持数/占比", "参与父类mAP的子类规则和状态"]},
+    {"id": "trajectory", "title": "轨迹评测", "content": ["实际脚本输出的误差/分位数/场景结果", "未启用则说明原因，不创建占位分数"]},
+    {"id": "scheme", "title": "专项与后处理评测", "content": ["按eval_scheme_report实际存在且启用的模块生成", "保留每项适用范围、单位和来源"]}
+  ],
+  "generation_pipeline": [
+    "识别本次执行和原始产物，保留原件及哈希",
+    "按源文件格式和版本解析，形成带来源定位的统一结果",
+    "校验模型/样本范围/单位/定义，显式生成可计算的派生指标",
+    "由语义模块组装摘要、结果表、覆盖状态和附录",
+    "渲染为飞书原生标题、表格、列表与附件",
+    "回读核对行数、数值、单位、缺失状态与附件，并保存发布索引"
+  ],
+  "machine_contract": {
+    "metric_fields": ["metric_id", "name", "value", "unit", "dimensions", "scope_id", "status", "source_file", "source_locator", "source_sha256", "definition_version", "derivation"],
+    "dimensions_examples": ["backend", "head", "class_id", "output_name", "scene_id", "frame_id"],
+    "metric_statuses": ["available", "no_gt_samples", "not_enabled", "not_available", "invalid", "not_applicable"],
+    "coverage_states": ["normalized", "displayed", "attached_only", "unparsed", "excluded_with_reason"],
+    "rules": [
+      "数值与单位分字段保存，不把数值和状态拼成不可解析字符串",
+      "统一结果JSON为后续自动对比的输入，飞书正文是同一结果的可读呈现",
+      "飞书解析或链接定位另保存section_id到block_id的发布索引",
+      "原始值保留完整精度；正文按指标注册的display_unit和precision格式化",
+      "每个结果模块列出来源字段覆盖；未解析字段进入清单，不静默丢弃",
+      "未来对比先核对数据、样本、类别、指标定义和预后处理，不根据文档列顺序配对"
+    ],
+    "display_units": {"cosine": "ratio_0_to_1", "iou_precision_recall_accuracy_ap_map": "percent_with_explicit_source_conversion", "counts": "integer_with_denominator_name", "distance": "explicit_m_or_cm"}
+  },
+  "migration_scope": {
+    "current_run": "pcm-v7-multiscene-001",
+    "sample_frames": 20,
+    "new_inference_required": false,
+    "publish_state": "not_published; design proposal only",
+    "original_documents_modified": false,
+    "future_pcm_report_layout": "independent downstream aggregation/comparison concern"
+  }
+}

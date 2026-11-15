@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PCM single evaluation result",
+  "type": "object",
+  "required": ["schema", "evaluation_type", "version_name", "execution", "collection", "coverage", "metrics", "artifacts", "quality_assessment"],
+  "properties": {
+    "schema": {"const": "pcm.single-eval/v1"},
+    "collector": {"type": "object", "required": ["name", "version"]},
+    "evaluation_type": {"enum": ["model_accuracy", "compile_alignment"]},
+    "version_name": {"type": ["string", "null"]},
+    "run_dir": {"type": "string"},
+    "collected_at": {"type": "string", "format": "date-time"},
+    "execution": {"type": "object", "required": ["state"]},
+    "collection": {
+      "type": "object", "required": ["status", "issues"],
+      "properties": {
+        "status": {"enum": ["complete", "partial", "empty"]},
+        "issues": {"type": "array", "items": {
+          "type": "object", "required": ["code", "severity", "message"],
+          "properties": {"severity": {"enum": ["error", "warning"]}}
+        }}
+      }
+    },
+    "coverage": {
+      "type": "object", "required": ["expected_frames", "observed"],
+      "properties": {
+        "expected_frames": {"type": ["integer", "null"], "minimum": 1},
+        "observed": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "metrics": {"type": "array", "items": {
+      "type": "object", "required": ["name", "value", "unit", "dimensions", "source"],
+      "properties": {
+        "name": {"type": "string"}, "value": {"type": "number"},
+        "unit": {"enum": ["percent", "ratio", "count", "meter", "centimeter", "bin", "source_defined"]},
+        "dimensions": {"type": "object"},
+        "source": {"type": "object", "required": ["path", "locator"],
+                   "properties": {"path": {"type": "string"}, "locator": {"type": "string"}}}
+      }
+    }},
+    "artifacts": {"type": "array", "items": {
+      "type": "object", "required": ["path", "role", "size_bytes", "sha256"],
+      "properties": {"path": {"type": "string"}, "role": {"type": "string"},
+                     "size_bytes": {"type": "integer", "minimum": 0},
+                     "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+    }},
+    "provenance": {"type": "object"},
+    "quality_assessment": {"const": "not_assessed"}
+  }
+}

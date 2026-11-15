@@ -1,0 +1,30 @@
+{
+  "schema": "pcm.eval-request/v1",
+  "kind": "compile_alignment",
+  "version_name": null,
+  "execution": {
+    "transport": "ssh",
+    "ssh_alias": "ubuntu-workstation",
+    "python": "python3",
+    "repo_dir": null,
+    "output_root": null,
+    "board_ssh": null,
+    "env": {}
+  },
+  "dataset": {
+    "class_name": "SmartChassisDatasetV7",
+    "path": null,
+    "data_link_file": null,
+    "export_root": null
+  },
+  "model": {
+    "onnx": null,
+    "packup_tar": null
+  },
+  "evaluation": {
+    "frame_fraction": 1.0,
+    "max_frames": 3,
+    "v7_pipeline_verified": false,
+    "compute_gt_metrics": false
+  }
+}

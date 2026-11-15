@@ -1,0 +1,24 @@
+{
+  "schema": "roadmodel.compile-output-semantics/v1",
+  "description": "Output names verified against the supplied model and CPU aggregation scripts; unknown outputs remain visible.",
+  "outputs": {
+    "/encoder/layers.67/Concat_3_output_0": {"label": "means3D", "group": "高斯输出"},
+    "/aggregator/Cast_1_output_0": {"label": "means3D_int", "group": "高斯输出"},
+    "/Reshape_34_output_0": {"label": "opacity", "group": "高斯输出"},
+    "/Concat_28_output_0": {"label": "semantics", "group": "高斯输出"},
+    "/aggregator/Min_output_0": {"label": "radii", "group": "高斯输出"},
+    "/MatMul_7_output_0": {"label": "cov3D", "group": "高斯输出"},
+    "rainfall_intensity": {"label": "雨天强度", "group": "视觉输出"},
+    "basic_road_surface": {"label": "道路表面", "group": "视觉输出"},
+    "surface_attachment": {"label": "路面附着", "group": "视觉输出"},
+    "surface_attachment_distribution": {"label": "附着分布", "group": "视觉输出"},
+    "overall_road_bumpiness": {"label": "整体颠簸", "group": "视觉输出"},
+    "bump_type": {"label": "凸起类型", "group": "视觉输出"},
+    "bridge_joint_type": {"label": "桥梁接缝类型", "group": "视觉输出"},
+    "pothole_damage": {"label": "坑洼破损", "group": "视觉输出"},
+    "traj_z": {"label": "轨迹高度输出", "group": "轨迹输出"},
+    "traj_label": {"label": "轨迹类别输出", "group": "轨迹输出"},
+    "new_anchor": {"label": "new_anchor", "group": "时序输出"},
+    "new_instance_feature": {"label": "new_instance_feature", "group": "时序输出"}
+  }
+}

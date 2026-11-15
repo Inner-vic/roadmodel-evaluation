@@ -1,0 +1,30 @@
+{
+  "schema":"roadmodel.installation-request/v1",
+  "account":{
+    "lpai_login":"REPLACE_WITH_SSO_LOGIN",
+    "lpai_account":"REPLACE_WITH_PLATFORM_OWNER@example.com",
+    "feishu_app_id":"cli_REPLACE",
+    "feishu_user_id":"ou_REPLACE"
+  },
+  "template":{
+    "id":"roadmodel-selected-gpu-v1",
+    "namespace":"REPLACE_WITH_NAMESPACE",
+    "cluster":"REPLACE_WITH_CLUSTER",
+    "project":"REPLACE_WITH_PROJECT_ID",
+    "resource_queue":"REPLACE_WITH_REVIEWED_QUEUE",
+    "image":"REPLACE_WITH_APPROVED_REGISTERED_IMAGE",
+    "resources":{
+      "gpuType":"REPLACE_WITH_REVIEWED_CUDA_GPU_TYPE",
+      "resourceQueue":"REPLACE_WITH_REVIEWED_QUEUE",
+      "resourceComboId":"REPLACE_WITH_REVIEWED_COMBO",
+      "resourceComboNum":1
+    },
+    "accesses":{"visibility":"personal","ports":[22,8888]},
+    "idle_shutdown":{"enabled":true,"minutes":240},
+    "ssh_host":"REPLACE_WITH_APPROVED_CLUSTER_HOST"
+  },
+  "ssh":{
+    "credential_name":"REPLACE_WITH_EXISTING_ACCOUNT_CREDENTIAL",
+    "identity_file":"REPLACE_WITH_EXECUTION_HOST_KEY_REFERENCE"
+  }
+}
