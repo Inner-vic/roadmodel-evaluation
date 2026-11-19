@@ -260,5 +260,5 @@
     "provided_by_user": true
   },
   "model_accuracy_input_binding": "evidence\\model-evaluation\\model-reference-20261027\\model-input-binding.json",
-  "publication_note": "Historical source-project metadata with synthetic connection/resource references; not a verified deployment catalog."
+  "publication_note": "Source-project metadata with synthetic connection/resource references; not a verified public deployment catalog."
 }
